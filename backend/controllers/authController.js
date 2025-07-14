@@ -30,7 +30,7 @@ class AuthController {
       }
 
       // Verify password
-      const isValidPassword = bcrypt.compareSync(password, admin.password_hash);
+      const isValidPassword = bcrypt.compare(password, admin.password_hash);
       
       if (!isValidPassword) {
         return res.status(401).json({
@@ -135,7 +135,7 @@ class AuthController {
       }
 
       // Hash new password
-      const newPasswordHash = bcrypt.hashSync(newPassword, 10);
+      const newPasswordHash = await bcrypt.hashSync(newPassword, 10);
 
       // Update password
       await database.run(
